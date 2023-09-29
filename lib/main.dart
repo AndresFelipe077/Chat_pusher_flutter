@@ -3,6 +3,7 @@ import 'package:chat_pusher_laravel/cubits/cubits.dart';
 import 'package:chat_pusher_laravel/repositories/auth/auth_repository.dart';
 import 'package:chat_pusher_laravel/screens/chat_list/chat_list_screen.dart';
 import 'package:chat_pusher_laravel/screens/guest/guest_screen.dart';
+import 'package:chat_pusher_laravel/screens/screens.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,8 +50,9 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true,
           ),
-          initialRoute: GuestScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           routes: {
+            SplashScreen.routeName: (_) => const SplashScreen(),
             GuestScreen.routeName: (_) => const GuestScreen(),
             ChatListScreen.routeName: (_) => const ChatListScreen(),
           },
