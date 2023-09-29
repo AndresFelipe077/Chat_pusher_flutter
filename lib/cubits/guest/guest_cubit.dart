@@ -53,4 +53,13 @@ class GuestCubit extends Cubit<GuestState> {
     }
     return response.message;
   }
+
+  Future<void> signOut() async {
+    _authRepository.logout();
+    _authBloc.add(const Authenticated(
+      isAuthenticated: false,
+      user: null,
+      token: null
+    ));
+  }
 }

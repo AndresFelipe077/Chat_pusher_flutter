@@ -1,61 +1,28 @@
+import 'package:chat_pusher_laravel/cubits/cubits.dart';
+import 'package:chat_pusher_laravel/screens/chat_list/chat_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/flutter_login.dart';
-
-const users = const {'felipe@gmail.com': '123'};
 
 class GuestScreen extends StatelessWidget {
   const GuestScreen({super.key});
 
   static const routeName = "guest";
 
-  Duration get loginTime => Duration(microseconds: 2250);
-
-  Future<String?> _authUser(LoginData data) {
-    debugPrint('Name: ${data.name}, Password:${data.password}');
-
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User no exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
-    });
-  }
-
-  Future<String?> _signupUser(SignupData data) {
-    debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      return null;
-    });
-  }
-
-  Future<String?> _recoverPassword(String name) {
-    debugPrint('Name: $name');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(name)) {
-        return 'User not exists';
-      }
-      return null;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<GuestCubit>();
+
     return FlutterLogin(
       scrollable: true,
       hideForgotPasswordButton: true,
       title: 'Chat',
       theme: LoginTheme(
-          titleStyle: const TextStyle(
-            fontSize: 24,
-            color: Colors.white
-          ),
+        titleStyle: const TextStyle(fontSize: 24, color: Colors.white),
       ),
       logo: const AssetImage('assets/images/chat.png'),
-      onLogin: _authUser,
-      onSignup: _signupUser,
+      onLogin: cubit.signIn,
+      onSignup: cubit.signUp,
       userValidator: (value) {
         if (value == null || !value.contains('@')) {
           return 'Please enter a valid email address';
@@ -68,8 +35,10 @@ class GuestScreen extends StatelessWidget {
         }
         return null;
       },
-      onSubmitAnimationCompleted: () {},
-      onRecoverPassword: _recoverPassword,
+      onSubmitAnimationCompleted: () {
+        Navigator.of(context).pushReplacementNamed(ChatListScreen.routeName);
+      },
+      onRecoverPassword: (_) async => null,
     );
   }
 }
