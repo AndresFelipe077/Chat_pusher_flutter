@@ -1,6 +1,7 @@
 import 'package:chat_pusher_laravel/blocs/chat/chat_bloc.dart';
 import 'package:chat_pusher_laravel/blocs/user/user_bloc.dart';
 import 'package:chat_pusher_laravel/models/models.dart';
+import 'package:chat_pusher_laravel/screens/chat/chat_screen.dart';
 import 'package:chat_pusher_laravel/utils/logger.dart';
 import 'package:chat_pusher_laravel/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +144,9 @@ class ChatListScreen extends StatelessWidget {
           onTap: () {
             /// selected user
             context.read<ChatBloc>().add(UserSelected(user));
+
+            /// push to chat screen
+            Navigator.of(context).pushNamed(ChatScreen.routeName);
           },
         ),
       ),

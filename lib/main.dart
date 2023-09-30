@@ -5,6 +5,7 @@ import 'package:chat_pusher_laravel/cubits/cubits.dart';
 import 'package:chat_pusher_laravel/repositories/auth/auth_repository.dart';
 import 'package:chat_pusher_laravel/repositories/chat/chat_repository.dart';
 import 'package:chat_pusher_laravel/repositories/user/user_repository.dart';
+import 'package:chat_pusher_laravel/screens/chat/chat_screen.dart';
 import 'package:chat_pusher_laravel/screens/chat_list/chat_list_screen.dart';
 import 'package:chat_pusher_laravel/screens/guest/guest_screen.dart';
 import 'package:chat_pusher_laravel/screens/screens.dart';
@@ -68,9 +69,10 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: SplashScreen.routeName,
           routes: {
-            SplashScreen.routeName: (_) => const SplashScreen(),
-            GuestScreen.routeName: (_) => const GuestScreen(),
-            ChatListScreen.routeName: (_) => const ChatListScreen(),
+            SplashScreen.routeName   : (_) => const SplashScreen(),
+            GuestScreen.routeName    : (_) => const GuestScreen(),
+            ChatListScreen.routeName : (_) => const ChatListScreen(),
+            ChatScreen.routeName     : (_) => const ChatScreen(),
           },
         ),
       ),

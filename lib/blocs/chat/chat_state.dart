@@ -4,10 +4,13 @@ part of 'chat_bloc.dart';
 class ChatState with _$ChatState {
   const factory ChatState({
     required List<ChatEntity> chats,
+    required List<ChatMessageEntity> chatMessages,
     ChatEntity? selectChat,
     required DataStatus status,
     required String message,
     int? otherUserId,
+    required bool isLastPage,
+    required int page,
   }) = _ChatState;
 
   factory ChatState.initial() {
@@ -16,7 +19,10 @@ class ChatState with _$ChatState {
         selectChat: null,
         status: DataStatus.initial,
         message: "",
-        otherUserId: null
+        otherUserId: null,
+        chatMessages: [],
+        isLastPage: false,
+        page: 1
     );
   }
 }
