@@ -1,8 +1,10 @@
 import 'package:chat_pusher_laravel/blocs/auth/auth_bloc.dart';
 import 'package:chat_pusher_laravel/blocs/chat/chat_bloc.dart';
+import 'package:chat_pusher_laravel/blocs/user/user_bloc.dart';
 import 'package:chat_pusher_laravel/cubits/cubits.dart';
 import 'package:chat_pusher_laravel/repositories/auth/auth_repository.dart';
 import 'package:chat_pusher_laravel/repositories/chat/chat_repository.dart';
+import 'package:chat_pusher_laravel/repositories/user/user_repository.dart';
 import 'package:chat_pusher_laravel/screens/chat_list/chat_list_screen.dart';
 import 'package:chat_pusher_laravel/screens/guest/guest_screen.dart';
 import 'package:chat_pusher_laravel/screens/screens.dart';
@@ -36,7 +38,10 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<ChatRepository>(
           create: (_) => ChatRepository(),
-        )
+        ),
+        RepositoryProvider<UserRepository>(
+          create: (_) => UserRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -49,6 +54,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ChatBloc(chatRepository: context.read<ChatRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => UserBloc(userRepository: context.read<UserRepository>()),
           ),
         ],
         child: MaterialApp(

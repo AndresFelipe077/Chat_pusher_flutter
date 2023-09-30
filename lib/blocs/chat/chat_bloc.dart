@@ -23,7 +23,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final result = await _chatRepository.getChats();
 
       emit(state.copyWith(
-        status : DataStatus.loaded,
+        status: DataStatus.loaded,
         chats: result.success ? result.data ?? [] : [],
       ));
     });
@@ -32,5 +32,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatState.initial());
     });
 
+    on<UserSelected>((event, emit) {
+      emit(state.copyWith(
+        otherUserId: event.user.id,
+      ));
+    });
   }
 }

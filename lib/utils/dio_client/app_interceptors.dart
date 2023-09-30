@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chat_pusher_laravel/blocs/auth/auth_bloc.dart';
 import 'package:dio/dio.dart';
 // import 'package:chat_pusher_laravel/blocs/auth/auth_bloc.dart';
 import 'package:chat_pusher_laravel/models/models.dart';
@@ -26,9 +27,12 @@ class AppInterceptors extends Interceptor {
     }*/
 
     if (!options.headers.containsKey(HttpHeaders.authorizationHeader)) {
-      const fakeToken = "FakeToken";
+      final state = AuthBloc().state;
 
-      options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${fakeToken}';
+      if (state.token != null) {
+        options.headers[HttpHeaders.authorizationHeader] =
+            'Bearer ${state.token}';
+      }
     }
 
     return handler.next(options);

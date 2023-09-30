@@ -6,7 +6,8 @@ class ChatState with _$ChatState {
     required List<ChatEntity> chats,
     ChatEntity? selectChat,
     required DataStatus status,
-    required String message
+    required String message,
+    int? otherUserId,
   }) = _ChatState;
 
   factory ChatState.initial() {
@@ -14,7 +15,8 @@ class ChatState with _$ChatState {
         chats: [],
         selectChat: null,
         status: DataStatus.initial,
-        message: ""
+        message: "",
+        otherUserId: null
     );
   }
 }

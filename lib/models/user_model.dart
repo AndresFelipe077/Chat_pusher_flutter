@@ -5,10 +5,23 @@ part 'user_model.g.dart';
 
 @freezed
 class UserEntity with _$UserEntity {
-  factory UserEntity() = _UserEntity;
+  const UserEntity._();
+
+  factory UserEntity({
+    required int id,
+    required String email,
+    required String username,
+  }) = _UserEntity;
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
       _$UserEntityFromJson(json);
+
+  /*ChatUser get toChatUser {
+    return ChatUser(
+      id: id.toString(),
+      firstName: username,
+    );
+  }*/
 }
 
 @freezed
@@ -19,6 +32,5 @@ class AuthUser with _$AuthUser {
   }) = _AuthUser;
 
   factory AuthUser.fromJson(Map<String, dynamic> json) =>
-   _$AuthUserFromJson(json);
-
+      _$AuthUserFromJson(json);
 }
