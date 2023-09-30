@@ -1,3 +1,4 @@
+import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
@@ -16,12 +17,12 @@ class UserEntity with _$UserEntity {
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
       _$UserEntityFromJson(json);
 
-  /*ChatUser get toChatUser {
+  ChatUser get toChatUser {
     return ChatUser(
       id: id.toString(),
       firstName: username,
     );
-  }*/
+  }
 }
 
 @freezed

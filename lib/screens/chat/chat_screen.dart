@@ -1,4 +1,6 @@
+import 'package:chat_pusher_laravel/blocs/auth/auth_bloc.dart';
 import 'package:chat_pusher_laravel/blocs/chat/chat_bloc.dart';
+import 'package:chat_pusher_laravel/models/models.dart';
 import 'package:chat_pusher_laravel/utils/logger.dart';
 import 'package:chat_pusher_laravel/widgets/startup_container.dart';
 import 'package:flutter/material.dart';
@@ -18,38 +20,61 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  List<ChatMessage> messages = basicSample;
+  // List<ChatMessage> messages = basicSample;
+
+  String getChatName(
+      List<ChatParticipantEntity> participants, UserEntity currentUser) {
+    final otherParticipants =
+        participants.where((el) => el.userId != currentUser.id).toList();
+
+    if (otherParticipants.isNotEmpty) {
+      return otherParticipants[0].user.username;
+    }
+
+    return 'N/A';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final chatBloc = context.read<ChatBloc>();
+    final authBloc = context.read<AuthBloc>();
+
     return StartUpContainer(
-      onInit: (){
+      onInit: () {
         /// Create a chat and get chat messages
+        chatBloc.add(const GetChatMessage());
       },
       child: Scaffold(
         appBar: AppBar(
           title: BlocConsumer<ChatBloc, ChatState>(
             listener: (_, __) {},
             builder: (context, state) {
-              final chat = state.selectChat;
+              final chat = state.selectedChat;
               vLog(chat);
-              return Text("Other user name");
+              return Text(chat == null
+                  ? "N/A"
+                  : getChatName(chat.participants, authBloc.state.user!));
             },
           ),
         ),
-        body: DashChat(
-          currentUser: user,
-          onSend: (ChatMessage chatMessage) {
-            vLog("add new message to message");
+        body: BlocBuilder<ChatBloc, ChatState>(
+          builder: (context, state) {
+            vLog(state.chatMessages);
+            return DashChat(
+              currentUser: user,
+              onSend: (ChatMessage chatMessage) {
+                chatBloc.add(SendMessage(state.selectedChat!.id, chatMessage));
+              },
+              messages: state.uiChatMessages,
+              messageListOptions: MessageListOptions(
+                onLoadEarlier: () async {
+                  chatBloc.add(const LoadMoreChatMessage());
+
+                  /// Load more messages
+                },
+              ),
+            );
           },
-          messages: messages,
-          messageListOptions: MessageListOptions(
-            onLoadEarlier: () async {
-              await Future.delayed(const Duration(seconds: 3));
-    
-              /// Load more messages
-            },
-          ),
         ),
       ),
     );

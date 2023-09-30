@@ -940,12 +940,13 @@ mixin _$ChatState {
   List<ChatEntity> get chats => throw _privateConstructorUsedError;
   List<ChatMessageEntity> get chatMessages =>
       throw _privateConstructorUsedError;
-  ChatEntity? get selectChat => throw _privateConstructorUsedError;
+  ChatEntity? get selectedChat => throw _privateConstructorUsedError;
   DataStatus get status => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   int? get otherUserId => throw _privateConstructorUsedError;
   bool get isLastPage => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  int? get notificationChatId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -960,14 +961,15 @@ abstract class $ChatStateCopyWith<$Res> {
   $Res call(
       {List<ChatEntity> chats,
       List<ChatMessageEntity> chatMessages,
-      ChatEntity? selectChat,
+      ChatEntity? selectedChat,
       DataStatus status,
       String message,
       int? otherUserId,
       bool isLastPage,
-      int page});
+      int page,
+      int? notificationChatId});
 
-  $ChatEntityCopyWith<$Res>? get selectChat;
+  $ChatEntityCopyWith<$Res>? get selectedChat;
 }
 
 /// @nodoc
@@ -985,12 +987,13 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   $Res call({
     Object? chats = null,
     Object? chatMessages = null,
-    Object? selectChat = freezed,
+    Object? selectedChat = freezed,
     Object? status = null,
     Object? message = null,
     Object? otherUserId = freezed,
     Object? isLastPage = null,
     Object? page = null,
+    Object? notificationChatId = freezed,
   }) {
     return _then(_value.copyWith(
       chats: null == chats
@@ -1001,9 +1004,9 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
           ? _value.chatMessages
           : chatMessages // ignore: cast_nullable_to_non_nullable
               as List<ChatMessageEntity>,
-      selectChat: freezed == selectChat
-          ? _value.selectChat
-          : selectChat // ignore: cast_nullable_to_non_nullable
+      selectedChat: freezed == selectedChat
+          ? _value.selectedChat
+          : selectedChat // ignore: cast_nullable_to_non_nullable
               as ChatEntity?,
       status: null == status
           ? _value.status
@@ -1025,18 +1028,22 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      notificationChatId: freezed == notificationChatId
+          ? _value.notificationChatId
+          : notificationChatId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ChatEntityCopyWith<$Res>? get selectChat {
-    if (_value.selectChat == null) {
+  $ChatEntityCopyWith<$Res>? get selectedChat {
+    if (_value.selectedChat == null) {
       return null;
     }
 
-    return $ChatEntityCopyWith<$Res>(_value.selectChat!, (value) {
-      return _then(_value.copyWith(selectChat: value) as $Val);
+    return $ChatEntityCopyWith<$Res>(_value.selectedChat!, (value) {
+      return _then(_value.copyWith(selectedChat: value) as $Val);
     });
   }
 }
@@ -1051,15 +1058,16 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
   $Res call(
       {List<ChatEntity> chats,
       List<ChatMessageEntity> chatMessages,
-      ChatEntity? selectChat,
+      ChatEntity? selectedChat,
       DataStatus status,
       String message,
       int? otherUserId,
       bool isLastPage,
-      int page});
+      int page,
+      int? notificationChatId});
 
   @override
-  $ChatEntityCopyWith<$Res>? get selectChat;
+  $ChatEntityCopyWith<$Res>? get selectedChat;
 }
 
 /// @nodoc
@@ -1075,12 +1083,13 @@ class __$$_ChatStateCopyWithImpl<$Res>
   $Res call({
     Object? chats = null,
     Object? chatMessages = null,
-    Object? selectChat = freezed,
+    Object? selectedChat = freezed,
     Object? status = null,
     Object? message = null,
     Object? otherUserId = freezed,
     Object? isLastPage = null,
     Object? page = null,
+    Object? notificationChatId = freezed,
   }) {
     return _then(_$_ChatState(
       chats: null == chats
@@ -1091,9 +1100,9 @@ class __$$_ChatStateCopyWithImpl<$Res>
           ? _value._chatMessages
           : chatMessages // ignore: cast_nullable_to_non_nullable
               as List<ChatMessageEntity>,
-      selectChat: freezed == selectChat
-          ? _value.selectChat
-          : selectChat // ignore: cast_nullable_to_non_nullable
+      selectedChat: freezed == selectedChat
+          ? _value.selectedChat
+          : selectedChat // ignore: cast_nullable_to_non_nullable
               as ChatEntity?,
       status: null == status
           ? _value.status
@@ -1115,24 +1124,30 @@ class __$$_ChatStateCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      notificationChatId: freezed == notificationChatId
+          ? _value.notificationChatId
+          : notificationChatId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ChatState implements _ChatState {
+class _$_ChatState extends _ChatState {
   const _$_ChatState(
       {required final List<ChatEntity> chats,
       required final List<ChatMessageEntity> chatMessages,
-      this.selectChat,
+      this.selectedChat,
       required this.status,
       required this.message,
       this.otherUserId,
       required this.isLastPage,
-      required this.page})
+      required this.page,
+      this.notificationChatId})
       : _chats = chats,
-        _chatMessages = chatMessages;
+        _chatMessages = chatMessages,
+        super._();
 
   final List<ChatEntity> _chats;
   @override
@@ -1151,7 +1166,7 @@ class _$_ChatState implements _ChatState {
   }
 
   @override
-  final ChatEntity? selectChat;
+  final ChatEntity? selectedChat;
   @override
   final DataStatus status;
   @override
@@ -1162,10 +1177,12 @@ class _$_ChatState implements _ChatState {
   final bool isLastPage;
   @override
   final int page;
+  @override
+  final int? notificationChatId;
 
   @override
   String toString() {
-    return 'ChatState(chats: $chats, chatMessages: $chatMessages, selectChat: $selectChat, status: $status, message: $message, otherUserId: $otherUserId, isLastPage: $isLastPage, page: $page)';
+    return 'ChatState(chats: $chats, chatMessages: $chatMessages, selectedChat: $selectedChat, status: $status, message: $message, otherUserId: $otherUserId, isLastPage: $isLastPage, page: $page, notificationChatId: $notificationChatId)';
   }
 
   @override
@@ -1176,15 +1193,17 @@ class _$_ChatState implements _ChatState {
             const DeepCollectionEquality().equals(other._chats, _chats) &&
             const DeepCollectionEquality()
                 .equals(other._chatMessages, _chatMessages) &&
-            (identical(other.selectChat, selectChat) ||
-                other.selectChat == selectChat) &&
+            (identical(other.selectedChat, selectedChat) ||
+                other.selectedChat == selectedChat) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.otherUserId, otherUserId) ||
                 other.otherUserId == otherUserId) &&
             (identical(other.isLastPage, isLastPage) ||
                 other.isLastPage == isLastPage) &&
-            (identical(other.page, page) || other.page == page));
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.notificationChatId, notificationChatId) ||
+                other.notificationChatId == notificationChatId));
   }
 
   @override
@@ -1192,12 +1211,13 @@ class _$_ChatState implements _ChatState {
       runtimeType,
       const DeepCollectionEquality().hash(_chats),
       const DeepCollectionEquality().hash(_chatMessages),
-      selectChat,
+      selectedChat,
       status,
       message,
       otherUserId,
       isLastPage,
-      page);
+      page,
+      notificationChatId);
 
   @JsonKey(ignore: true)
   @override
@@ -1206,23 +1226,25 @@ class _$_ChatState implements _ChatState {
       __$$_ChatStateCopyWithImpl<_$_ChatState>(this, _$identity);
 }
 
-abstract class _ChatState implements ChatState {
+abstract class _ChatState extends ChatState {
   const factory _ChatState(
       {required final List<ChatEntity> chats,
       required final List<ChatMessageEntity> chatMessages,
-      final ChatEntity? selectChat,
+      final ChatEntity? selectedChat,
       required final DataStatus status,
       required final String message,
       final int? otherUserId,
       required final bool isLastPage,
-      required final int page}) = _$_ChatState;
+      required final int page,
+      final int? notificationChatId}) = _$_ChatState;
+  const _ChatState._() : super._();
 
   @override
   List<ChatEntity> get chats;
   @override
   List<ChatMessageEntity> get chatMessages;
   @override
-  ChatEntity? get selectChat;
+  ChatEntity? get selectedChat;
   @override
   DataStatus get status;
   @override
@@ -1233,6 +1255,8 @@ abstract class _ChatState implements ChatState {
   bool get isLastPage;
   @override
   int get page;
+  @override
+  int? get notificationChatId;
   @override
   @JsonKey(ignore: true)
   _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>
