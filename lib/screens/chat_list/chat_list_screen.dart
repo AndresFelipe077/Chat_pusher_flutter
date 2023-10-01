@@ -2,6 +2,7 @@ import 'package:chat_pusher_laravel/blocs/chat/chat_bloc.dart';
 import 'package:chat_pusher_laravel/blocs/user/user_bloc.dart';
 import 'package:chat_pusher_laravel/models/models.dart';
 import 'package:chat_pusher_laravel/screens/chat/chat_screen.dart';
+import 'package:chat_pusher_laravel/screens/chat_list/chat_list_item.dart';
 import 'package:chat_pusher_laravel/utils/logger.dart';
 import 'package:chat_pusher_laravel/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -61,25 +62,41 @@ class ChatListScreen extends StatelessWidget {
             )
           ],
         ),
-        body: BlocConsumer<ChatBloc, ChatState>(
-          listener: (_, __) {},
-          builder: (context, state) {
-            if (state.chats.isEmpty) {
-              return const BlankContent(
-                content: "No chat available",
-                icon: Icons.chat_rounded,
-              );
-            }
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                return const Text("Hello");
-              },
-              separatorBuilder: (_, __) => const Divider(
-                height: 1.5,
-              ),
-              itemCount: state.chats.length,
-            );
+        body: RefreshIndicator(
+          onRefresh: () async {
+            chatBloc.add(const ChatStarted());
+            userBloc.add(const UserStarted());
           },
+          child: BlocConsumer<ChatBloc, ChatState>(
+            listener: (_, __) {},
+            builder: (context, state) {
+              if (state.chats.isEmpty) {
+                return const BlankContent(
+                  content: "No chat available",
+                  icon: Icons.chat_rounded,
+                );
+              }
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  final item = state.chats[index];
+
+                  return ChatListItem(
+                    key: ValueKey(item.id),
+                    item: item,
+                    currentUser: currentUser,
+                    onPressed: (chat) {
+                      chatBloc.add(ChatSelected(chat));
+                      Navigator.of(context).pushNamed(ChatScreen.routeName);
+                    },
+                  );
+                },
+                separatorBuilder: (_, __) => const Divider(
+                  height: 1.5,
+                ),
+                itemCount: state.chats.length,
+              );
+            },
+          ),
         ),
         floatingActionButton:
             BlocSelector<UserBloc, UserState, List<UserEntity>>(

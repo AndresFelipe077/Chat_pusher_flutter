@@ -1,10 +1,9 @@
 import 'package:chat_pusher_laravel/blocs/auth/auth_bloc.dart';
 import 'package:chat_pusher_laravel/blocs/chat/chat_bloc.dart';
-import 'package:chat_pusher_laravel/models/models.dart';
+import 'package:chat_pusher_laravel/utils/chat.dart';
 import 'package:chat_pusher_laravel/utils/logger.dart';
 import 'package:chat_pusher_laravel/widgets/startup_container.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_pusher_laravel/screens/chat/data.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat_pusher_laravel/widgets/widgets.dart';
@@ -20,20 +19,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  // List<ChatMessage> messages = basicSample;
-
-  String getChatName(
-      List<ChatParticipantEntity> participants, UserEntity currentUser) {
-    final otherParticipants =
-        participants.where((el) => el.userId != currentUser.id).toList();
-
-    if (otherParticipants.isNotEmpty) {
-      return otherParticipants[0].user.username;
-    }
-
-    return 'N/A';
-  }
-
   @override
   Widget build(BuildContext context) {
     final chatBloc = context.read<ChatBloc>();
@@ -43,6 +28,10 @@ class _ChatScreenState extends State<ChatScreen> {
       onInit: () {
         /// Create a chat and get chat messages
         chatBloc.add(const GetChatMessage());
+      },
+      onDisposed: () {
+        chatBloc.add(const ChatReset());
+        chatBloc.add(const ChatStarted());
       },
       child: Scaffold(
         appBar: AppBar(
@@ -61,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
           builder: (context, state) {
             vLog(state.chatMessages);
             return DashChat(
-              currentUser: user,
+              currentUser: authBloc.state.user!.toChatUser,
               onSend: (ChatMessage chatMessage) {
                 chatBloc.add(SendMessage(state.selectedChat!.id, chatMessage));
               },

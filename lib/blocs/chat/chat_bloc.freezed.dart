@@ -19,31 +19,34 @@ mixin _$ChatEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +58,7 @@ mixin _$ChatEvent {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$ChatEvent {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$ChatEvent {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -136,11 +142,12 @@ class _$ChatStarted implements ChatStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
     return started();
   }
@@ -149,11 +156,12 @@ class _$ChatStarted implements ChatStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
     return started?.call();
   }
@@ -162,11 +170,12 @@ class _$ChatStarted implements ChatStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -184,6 +193,7 @@ class _$ChatStarted implements ChatStarted {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return started(this);
   }
@@ -197,6 +207,7 @@ class _$ChatStarted implements ChatStarted {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return started?.call(this);
   }
@@ -210,6 +221,7 @@ class _$ChatStarted implements ChatStarted {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -228,6 +240,8 @@ abstract class _$$ChatResetCopyWith<$Res> {
   factory _$$ChatResetCopyWith(
           _$ChatReset value, $Res Function(_$ChatReset) then) =
       __$$ChatResetCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool? shouldResetChat});
 }
 
 /// @nodoc
@@ -237,66 +251,94 @@ class __$$ChatResetCopyWithImpl<$Res>
   __$$ChatResetCopyWithImpl(
       _$ChatReset _value, $Res Function(_$ChatReset) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shouldResetChat = freezed,
+  }) {
+    return _then(_$ChatReset(
+      shouldResetChat: freezed == shouldResetChat
+          ? _value.shouldResetChat
+          : shouldResetChat // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ChatReset implements ChatReset {
-  const _$ChatReset();
+  const _$ChatReset({this.shouldResetChat});
+
+  @override
+  final bool? shouldResetChat;
 
   @override
   String toString() {
-    return 'ChatEvent.reset()';
+    return 'ChatEvent.reset(shouldResetChat: $shouldResetChat)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ChatReset);
+        (other.runtimeType == runtimeType &&
+            other is _$ChatReset &&
+            (identical(other.shouldResetChat, shouldResetChat) ||
+                other.shouldResetChat == shouldResetChat));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, shouldResetChat);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChatResetCopyWith<_$ChatReset> get copyWith =>
+      __$$ChatResetCopyWithImpl<_$ChatReset>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
-    return reset();
+    return reset(shouldResetChat);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
-    return reset?.call();
+    return reset?.call(shouldResetChat);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (reset != null) {
-      return reset();
+      return reset(shouldResetChat);
     }
     return orElse();
   }
@@ -310,6 +352,7 @@ class _$ChatReset implements ChatReset {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return reset(this);
   }
@@ -323,6 +366,7 @@ class _$ChatReset implements ChatReset {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return reset?.call(this);
   }
@@ -336,6 +380,7 @@ class _$ChatReset implements ChatReset {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -346,7 +391,12 @@ class _$ChatReset implements ChatReset {
 }
 
 abstract class ChatReset implements ChatEvent {
-  const factory ChatReset() = _$ChatReset;
+  const factory ChatReset({final bool? shouldResetChat}) = _$ChatReset;
+
+  bool? get shouldResetChat;
+  @JsonKey(ignore: true)
+  _$$ChatResetCopyWith<_$ChatReset> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -424,11 +474,12 @@ class _$UserSelected implements UserSelected {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
     return userSeleted(user);
   }
@@ -437,11 +488,12 @@ class _$UserSelected implements UserSelected {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
     return userSeleted?.call(user);
   }
@@ -450,11 +502,12 @@ class _$UserSelected implements UserSelected {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (userSeleted != null) {
@@ -472,6 +525,7 @@ class _$UserSelected implements UserSelected {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return userSeleted(this);
   }
@@ -485,6 +539,7 @@ class _$UserSelected implements UserSelected {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return userSeleted?.call(this);
   }
@@ -498,6 +553,7 @@ class _$UserSelected implements UserSelected {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (userSeleted != null) {
@@ -555,11 +611,12 @@ class _$GetChatMessage implements GetChatMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
     return getChatMessage();
   }
@@ -568,11 +625,12 @@ class _$GetChatMessage implements GetChatMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
     return getChatMessage?.call();
   }
@@ -581,11 +639,12 @@ class _$GetChatMessage implements GetChatMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (getChatMessage != null) {
@@ -603,6 +662,7 @@ class _$GetChatMessage implements GetChatMessage {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return getChatMessage(this);
   }
@@ -616,6 +676,7 @@ class _$GetChatMessage implements GetChatMessage {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return getChatMessage?.call(this);
   }
@@ -629,6 +690,7 @@ class _$GetChatMessage implements GetChatMessage {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (getChatMessage != null) {
@@ -681,11 +743,12 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
     return loadMoreChatMessage();
   }
@@ -694,11 +757,12 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
     return loadMoreChatMessage?.call();
   }
@@ -707,11 +771,12 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (loadMoreChatMessage != null) {
@@ -729,6 +794,7 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return loadMoreChatMessage(this);
   }
@@ -742,6 +808,7 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return loadMoreChatMessage?.call(this);
   }
@@ -755,6 +822,7 @@ class _$LoadMoreChatMessage implements LoadMoreChatMessage {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (loadMoreChatMessage != null) {
@@ -841,11 +909,12 @@ class _$SendMessage implements SendMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() reset,
+    required TResult Function(bool? shouldResetChat) reset,
     required TResult Function(UserEntity user) userSeleted,
     required TResult Function() getChatMessage,
     required TResult Function() loadMoreChatMessage,
     required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
   }) {
     return sendMessages(chatId, message);
   }
@@ -854,11 +923,12 @@ class _$SendMessage implements SendMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? reset,
+    TResult? Function(bool? shouldResetChat)? reset,
     TResult? Function(UserEntity user)? userSeleted,
     TResult? Function()? getChatMessage,
     TResult? Function()? loadMoreChatMessage,
     TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
   }) {
     return sendMessages?.call(chatId, message);
   }
@@ -867,11 +937,12 @@ class _$SendMessage implements SendMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? reset,
+    TResult Function(bool? shouldResetChat)? reset,
     TResult Function(UserEntity user)? userSeleted,
     TResult Function()? getChatMessage,
     TResult Function()? loadMoreChatMessage,
     TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
     required TResult orElse(),
   }) {
     if (sendMessages != null) {
@@ -889,6 +960,7 @@ class _$SendMessage implements SendMessage {
     required TResult Function(GetChatMessage value) getChatMessage,
     required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
     required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
   }) {
     return sendMessages(this);
   }
@@ -902,6 +974,7 @@ class _$SendMessage implements SendMessage {
     TResult? Function(GetChatMessage value)? getChatMessage,
     TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
   }) {
     return sendMessages?.call(this);
   }
@@ -915,6 +988,7 @@ class _$SendMessage implements SendMessage {
     TResult Function(GetChatMessage value)? getChatMessage,
     TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
     TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
     required TResult orElse(),
   }) {
     if (sendMessages != null) {
@@ -932,6 +1006,179 @@ abstract class SendMessage implements ChatEvent {
   ChatMessage get message;
   @JsonKey(ignore: true)
   _$$SendMessageCopyWith<_$SendMessage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChatSelectedCopyWith<$Res> {
+  factory _$$ChatSelectedCopyWith(
+          _$ChatSelected value, $Res Function(_$ChatSelected) then) =
+      __$$ChatSelectedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ChatEntity chat});
+
+  $ChatEntityCopyWith<$Res> get chat;
+}
+
+/// @nodoc
+class __$$ChatSelectedCopyWithImpl<$Res>
+    extends _$ChatEventCopyWithImpl<$Res, _$ChatSelected>
+    implements _$$ChatSelectedCopyWith<$Res> {
+  __$$ChatSelectedCopyWithImpl(
+      _$ChatSelected _value, $Res Function(_$ChatSelected) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? chat = null,
+  }) {
+    return _then(_$ChatSelected(
+      null == chat
+          ? _value.chat
+          : chat // ignore: cast_nullable_to_non_nullable
+              as ChatEntity,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChatEntityCopyWith<$Res> get chat {
+    return $ChatEntityCopyWith<$Res>(_value.chat, (value) {
+      return _then(_value.copyWith(chat: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ChatSelected implements ChatSelected {
+  const _$ChatSelected(this.chat);
+
+  @override
+  final ChatEntity chat;
+
+  @override
+  String toString() {
+    return 'ChatEvent.chatSelected(chat: $chat)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChatSelected &&
+            (identical(other.chat, chat) || other.chat == chat));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, chat);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChatSelectedCopyWith<_$ChatSelected> get copyWith =>
+      __$$ChatSelectedCopyWithImpl<_$ChatSelected>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool? shouldResetChat) reset,
+    required TResult Function(UserEntity user) userSeleted,
+    required TResult Function() getChatMessage,
+    required TResult Function() loadMoreChatMessage,
+    required TResult Function(int chatId, ChatMessage message) sendMessages,
+    required TResult Function(ChatEntity chat) chatSelected,
+  }) {
+    return chatSelected(chat);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool? shouldResetChat)? reset,
+    TResult? Function(UserEntity user)? userSeleted,
+    TResult? Function()? getChatMessage,
+    TResult? Function()? loadMoreChatMessage,
+    TResult? Function(int chatId, ChatMessage message)? sendMessages,
+    TResult? Function(ChatEntity chat)? chatSelected,
+  }) {
+    return chatSelected?.call(chat);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool? shouldResetChat)? reset,
+    TResult Function(UserEntity user)? userSeleted,
+    TResult Function()? getChatMessage,
+    TResult Function()? loadMoreChatMessage,
+    TResult Function(int chatId, ChatMessage message)? sendMessages,
+    TResult Function(ChatEntity chat)? chatSelected,
+    required TResult orElse(),
+  }) {
+    if (chatSelected != null) {
+      return chatSelected(chat);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChatStarted value) started,
+    required TResult Function(ChatReset value) reset,
+    required TResult Function(UserSelected value) userSeleted,
+    required TResult Function(GetChatMessage value) getChatMessage,
+    required TResult Function(LoadMoreChatMessage value) loadMoreChatMessage,
+    required TResult Function(SendMessage value) sendMessages,
+    required TResult Function(ChatSelected value) chatSelected,
+  }) {
+    return chatSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChatStarted value)? started,
+    TResult? Function(ChatReset value)? reset,
+    TResult? Function(UserSelected value)? userSeleted,
+    TResult? Function(GetChatMessage value)? getChatMessage,
+    TResult? Function(LoadMoreChatMessage value)? loadMoreChatMessage,
+    TResult? Function(SendMessage value)? sendMessages,
+    TResult? Function(ChatSelected value)? chatSelected,
+  }) {
+    return chatSelected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChatStarted value)? started,
+    TResult Function(ChatReset value)? reset,
+    TResult Function(UserSelected value)? userSeleted,
+    TResult Function(GetChatMessage value)? getChatMessage,
+    TResult Function(LoadMoreChatMessage value)? loadMoreChatMessage,
+    TResult Function(SendMessage value)? sendMessages,
+    TResult Function(ChatSelected value)? chatSelected,
+    required TResult orElse(),
+  }) {
+    if (chatSelected != null) {
+      return chatSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChatSelected implements ChatEvent {
+  const factory ChatSelected(final ChatEntity chat) = _$ChatSelected;
+
+  ChatEntity get chat;
+  @JsonKey(ignore: true)
+  _$$ChatSelectedCopyWith<_$ChatSelected> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
