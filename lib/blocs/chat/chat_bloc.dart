@@ -111,6 +111,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           chatId: event.chatId,
           message: event.message.text,
         ),
+        event.sockedId
       );
 
       if (result.success) {
@@ -163,6 +164,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<ChatSelected>((event, emit) {
       emit(state.copyWith(selectedChat: event.chat));
+    });
+
+    on<AddNewMessage>((event, emit) {
+      emit(state.copyWith(  
+        chatMessages: [event.message, ...state.chatMessages],
+      ));
     });
   }
 }

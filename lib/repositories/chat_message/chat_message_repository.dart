@@ -15,10 +15,16 @@ class ChatMessageRepository extends BaseChatMessageRepository {
 
   @override
   Future<AppResponse<ChatMessageEntity?>> createChatMessage(
-      CreateChatMessageRequest request) async {
+      CreateChatMessageRequest request,
+      String socketId,
+    ) async {
     final response = await _dioClient.post(
       Endpoints.createChatMessage,
       data: request.toJson(),
+      options: Options(headers: {
+        'X-Socket-ID': socketId,
+        },
+      ),
     );
 
     return AppResponse<ChatMessageEntity?>.fromJson(
