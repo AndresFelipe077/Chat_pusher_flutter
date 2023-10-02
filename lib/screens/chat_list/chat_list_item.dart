@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_pusher_laravel/models/models.dart';
+import 'package:chat_pusher_laravel/utils/chat.dart';
 import 'package:chat_pusher_laravel/utils/utils.dart';
 
 class ChatListItem extends StatelessWidget {

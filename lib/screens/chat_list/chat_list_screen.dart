@@ -4,6 +4,7 @@ import 'package:chat_pusher_laravel/models/models.dart';
 import 'package:chat_pusher_laravel/screens/chat/chat_screen.dart';
 import 'package:chat_pusher_laravel/screens/chat_list/chat_list_item.dart';
 import 'package:chat_pusher_laravel/utils/logger.dart';
+import 'package:chat_pusher_laravel/utils/utils.dart';
 import 'package:chat_pusher_laravel/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,11 @@ class ChatListScreen extends StatelessWidget {
       onInit: () async {
         chatBloc.add(const ChatStarted());
         userBloc.add(const UserStarted());
+
+        LaravelEcho.init(token: authBloc.state.token!);
+      },
+      onDisposed: () {
+        LaravelEcho.instance.disconnect();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -124,7 +130,7 @@ class ChatListScreen extends StatelessWidget {
       delegate: SearchPage<UserEntity>(
         items: users,
         searchLabel: 'Search people',
-        suggestion: const Center(
+        suggestion: Center(
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(
               Icons.search,
