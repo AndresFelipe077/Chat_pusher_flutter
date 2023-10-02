@@ -32,8 +32,8 @@ class PusherConfig {
   static const key = "850de022339c4d609a8f";
   static const secret = "b7ec85147f0fb7b9846c";
   static const cluster = "us2";
-  static const hostEndPoint = "";
-  static const hostAuthEndPoint = "";
+  static const hostEndPoint = "https://d993-181-129-248-51.ngrok-free.app";
+  static const hostAuthEndPoint = "$hostEndPoint/api/broadcasting/auth";
   static const port = 6001;
 }
 
@@ -43,11 +43,14 @@ PusherClient createPusherClient(String token) {
     encrypted: true,
     host: PusherConfig.hostEndPoint,
     cluster: PusherConfig.cluster,
-    auth: PusherAuth(PusherConfig.hostAuthEndPoint, headers: {
-      'Authorization': "Bearer $token",
-      'Content-Type': "application/json",
-      'Accept': 'application/json'
-    }),
+    auth: PusherAuth(
+      PusherConfig.hostAuthEndPoint,
+      headers: {
+        'Authorization': "Bearer $token",
+        'Content-Type': "application/json",
+        'Accept': 'application/json'
+      },
+    ),
   );
 
   PusherClient pusherClient = PusherClient(
